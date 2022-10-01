@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTaskApi, getAllTaskApi } from "../redux/actions/TodolistAction";
+import {
+  addTaskApi,
+  deleteTaskApi,
+  doneTaskApi,
+  getAllTaskApi,
+  rejectTaskApi,
+} from "../redux/actions/TodolistAction";
 import "./TodolistStyle.css";
 export default function Todolist(props) {
   let [state, setState] = useState({
@@ -70,10 +76,22 @@ export default function Todolist(props) {
         <li key={index}>
           <span>{task.taskName}</span>
           <div className="buttons">
-            <button className="remove">
+            <button
+              className="remove"
+              type="button"
+              onClick={() => {
+                handleDeleteTask(task.taskName);
+              }}
+            >
               <i className="fa fa-trash-alt" />
             </button>
-            <button className="complete">
+            <button
+              className="complete"
+              type="button"
+              onClick={() => {
+                handleDoneTask(task.taskName);
+              }}
+            >
               <i className="fa fa-check-circle" />
             </button>
           </div>
@@ -88,11 +106,23 @@ export default function Todolist(props) {
         <li key={index}>
           <span>{task.taskName}</span>
           <div className="buttons">
-            <button className="remove">
+            <button
+              className="remove"
+              type="button"
+              onClick={() => {
+                handleDeleteTask(task.taskName);
+              }}
+            >
               <i className="fa fa-trash-alt" />
             </button>
-            <button className="complete">
-              <i className="fa fa-check-circle" />
+            <button
+              className="complete"
+              type="button"
+              onClick={() => {
+                handleRejectTask(task.taskName);
+              }}
+            >
+              <i className="fa fa-undo" />
             </button>
           </div>
         </li>
@@ -102,6 +132,18 @@ export default function Todolist(props) {
   const handleAddTask = (event) => {
     event.preventDefault();
     dispatch(addTaskApi(state.values.taskName));
+  };
+
+  const handleDeleteTask = (taskName) => {
+    dispatch(deleteTaskApi(taskName));
+  };
+
+  const handleDoneTask = (taskName) => {
+    dispatch(doneTaskApi(taskName));
+  };
+
+  const handleRejectTask = taskName => {
+    dispatch(rejectTaskApi(taskName));
   }
 
   return (
