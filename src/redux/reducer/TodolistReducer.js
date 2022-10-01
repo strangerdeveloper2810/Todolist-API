@@ -1,3 +1,4 @@
+import {GET_ALL_TASK_API} from "../constants/TodolistConstants"
 const initialState = {
     taskList:[]
 }
@@ -5,7 +6,9 @@ const initialState = {
 const TodolistReducer = (state = initialState, action) => {
   switch (action.type) {
 
-  case "":
+  case GET_ALL_TASK_API:
+    console.log(action.taskList);
+    state.taskList = action.taskList;
     return { ...state }
 
   default:
