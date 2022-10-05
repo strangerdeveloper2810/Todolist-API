@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addTaskApi,
-  deleteTaskApi,
-  doneTaskApi,
-  getAllTaskApi,
-  rejectTaskApi,
-} from "../redux/actions/TodolistAction";
+import { GET_TASK_API } from "../redux/constants/TodolistConstants";
 import "./TodolistStyle.css";
-export default function Todolist(props) {
+export default function TodolistReduxSaga(props) {
   let [state, setState] = useState({
     values: {
       taskName: "",
@@ -60,9 +54,7 @@ export default function Todolist(props) {
     });
   };
 
-  const handleGetAllTask = () => {
-    dispatch(getAllTaskApi());
-  };
+  const handleGetAllTask = () => {};
 
   useEffect(() => {
     handleGetAllTask();
@@ -131,28 +123,28 @@ export default function Todolist(props) {
 
   const handleAddTask = (event) => {
     event.preventDefault();
-    dispatch(addTaskApi(state.values.taskName));
   };
 
-  const handleDeleteTask = (taskName) => {
-    dispatch(deleteTaskApi(taskName));
-  };
+  const handleDeleteTask = (taskName) => {};
 
-  const handleDoneTask = (taskName) => {
-    dispatch(doneTaskApi(taskName));
-  };
+  const handleDoneTask = (taskName) => {};
 
-  const handleRejectTask = (taskName) => {
-    dispatch(rejectTaskApi(taskName));
-  };
+  const handleRejectTask = (taskName) => {};
 
   return (
     <div className="card">
+      <button className="btn btn-success text-center" onClick={()=>{
+        dispatch({
+            type: GET_TASK_API
+        });
+      }}>Dispatch</button>
       <div className="card__header">
         <img src="./img/X2oObC4.png" alt="background" />
       </div>
+
       <form className="card__body" onSubmit={handleAddTask}>
         <div className="card__content">
+          <h3 className="text-success text-center">Todolist Redux-Saga</h3>
           <div className="card__title">
             <h2>My Tasks</h2>
             {renderDate()}

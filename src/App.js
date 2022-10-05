@@ -1,10 +1,17 @@
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Header from "./pages/Home/Header";
 import Todolist from "./Todolist/Todolist";
+import TodolistReduxSaga from "./Todolist/TodolistReduxSaga";
 
 function App() {
   return (
-    <div>
-      <Todolist/>    
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Switch>
+        <Route exact path="/todolist" component={Todolist} />
+        <Route exact path="/todolistSaga" component={TodolistReduxSaga}/>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
